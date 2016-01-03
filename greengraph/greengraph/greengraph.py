@@ -32,11 +32,14 @@ if __name__ == "__main__":
     else:
         data = mygraph.green_between(20)
 
-    #Saving and plotting data
-    myplot = plt.plot(data)
-    #ax = myplot.add_subplot(111)
-    #ax.set_title('Greengraph - %s to %s' %(arguments.start, arguments.end))
-    plt.savefig(arguments.filename)
+    ## Saving and plotting data
+    fig = plt.figure()
+    plt.plot(data)
+    fig.suptitle('Greengraph - %s to %s' %(arguments.start, arguments.end), fontsize=14, fontweight='bold')
+    ax = fig.add_subplot(111)
+    ax.set_xlabel('steps')
+    ax.set_ylabel('green pixel count')
+    plt.savefig(arguments.filename) # Save plot
 
-    if arguments.plot:
+    if arguments.plot: # Show plot
         plt.show()
