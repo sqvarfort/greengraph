@@ -35,6 +35,8 @@ class Greengraph(object):
 
 # This returns an array with two values: the steps and the
     def green_between(self, steps):
+        if steps <= 0:
+            raise ValueError("Step size must be positive")
         try:
             green_array = [Map(*location).count_green()
             for location in self.location_sequence(
@@ -42,6 +44,6 @@ class Greengraph(object):
             self.geolocate(self.end),steps)]
             return green_array
         except:
-            print 'Error: Input location not found. ' 
+            print 'Error: Input location not found. '
             quit()
         #
