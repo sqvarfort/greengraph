@@ -19,6 +19,9 @@ class Greengraph(object):
 
     def geolocate(self, place): #Find the place, will be used later on, just for syntax simplicity
         return self.geocoder.geocode(place,exactly_one=False)[0][1]
+
+
+
 # This we can definitely test
 
 
@@ -32,8 +35,13 @@ class Greengraph(object):
 
 # This returns an array with two values: the steps and the
     def green_between(self, steps):
-        return [Map(*location).count_green()
-        for location in self.location_sequence(
-        self.geolocate(self.start),
-        self.geolocate(self.end),steps)]
+        try:
+            green_array = [Map(*location).count_green()
+            for location in self.location_sequence(
+            self.geolocate(self.start),
+            self.geolocate(self.end),steps)]
+            return green_array
+        except:
+            print 'Error: Input location not found. ' 
+            quit()
         #
