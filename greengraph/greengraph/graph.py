@@ -1,5 +1,6 @@
 import numpy as np
 import geopy
+import time
 from map import Map
 
 # This is the constructor
@@ -35,7 +36,7 @@ class Greengraph(object):
 
 # This returns an array with two values: the steps and the
     def green_between(self, steps):
-        if steps <= 0:
+        if steps <= 0: # Raise exception for non-positive values
             raise ValueError("Step size must be positive")
         try:
             green_array = [Map(*location).count_green()
@@ -47,3 +48,16 @@ class Greengraph(object):
             print 'Error: Input location not found. '
             quit()
         #
+
+# Google API error method
+    def api_overload(self, steps):
+        data = self.green_between(steps)
+        error_threshold = 2
+        count = 0
+        for iterate in range(0,len(data)):
+            if data[iterate] == 323:
+                count += 1
+        if count >= error_threshold:
+            return True
+        else:
+            return False
