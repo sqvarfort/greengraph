@@ -16,28 +16,19 @@ if __name__ == "__main__":
     parser.add_argument('filename', type=str, help ='image filename with extension')
     parser.add_argument('--steps', '-s', type=int, help = 'Number of steps, default = 20')
     parser.add_argument('--plot', '-p', action ='store_true', help ='Display plot')
+    parser.add_argument('--delay', '-d', type=int, help = 'API request delay in seconds')
 
     arguments = parser.parse_args()
 
 
-    mygraph = Greengraph(arguments.start, arguments.end) # Create Greengraph object
 
-
-
-    # Set stepsize if entered. Otherwise, set to 20.
-    if arguments.steps:
-        data = mygraph.green_between(arguments.steps)
-    else:
-        data = mygraph.green_between(20)
+    mygraph = Greengraph(arguments.start, arguments.end, arguments.delay) # Create Greengraph object
+    data = mygraph.green_between(arguments.steps)
 
     # Catch API overload error
     # Google sends error picture with 325 green pixels.
-    error_threshold = 5
-    count = 0
-    for iterate in range(0,arguments.steps):
-        if data[iterate] == 323:
-            count += 1
-    if count >= error_threshold:
+    # This method should be in one of the classes
+    if mygraph.api_overload(arguments.steps):
         print 'Warning: API overload'
 
 

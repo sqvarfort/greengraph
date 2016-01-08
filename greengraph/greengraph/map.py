@@ -2,8 +2,9 @@ import numpy as np
 import requests
 from StringIO import StringIO
 from matplotlib import image as img
+import time
 
-
+# What is the the Map object?
 class Map(object): #Obtain the map from Google Maps
     def __init__(self, lat, long, satellite=True,
         zoom=10, size=(400,400), sensor=False): #Tells us the dimensions of the map required
@@ -35,6 +36,7 @@ class Map(object): #Obtain the map from Google Maps
     def count_green(self, threshold = 1.1): #Count the number of green pixels
         return np.sum(self.green(threshold)) #Sum up all the ones in the matrix
 
+# Displays the green map
     def show_green(data, threshold = 1.1): #Not sure if this function is even useful....
         green = self.green(threshold)
         out = green[:,:,np.newaxis]*array([0,1,0])[np.newaxis,np.newaxis,:]
