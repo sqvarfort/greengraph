@@ -19,20 +19,21 @@ class Greengraph(object):
             quit()
 
     def geolocate(self, place): #Find the place
-        time.sleep(self.delay)
+        time.sleep(self.delay) # Delay request
         try:
-            return self.geocoder.geocode(place,exactly_one=False)[0][1]
-        except TypeError: #Catch bad input locations
-            print 'Input "%s" not found.' %place
+            geolocate_place = self.geocoder.geocode(place,exactly_one=False)[0][1]
+            return  geolocate_place
+        except TypeError:
+            raise TypeError( 'Input "%s" not found.' %place)
             quit()
 
-    def location_sequence(self, start,end,steps): #Denote the latitude/longitude
-        lats = np.linspace(start[0], end[0], steps) # np.linspace returns evenly spaced numbers over an interval
+
+    def location_sequence(self, start,end,steps): # Return matrix with lats and longs
+        lats = np.linspace(start[0], end[0], steps)
         longs = np.linspace(start[1],end[1], steps)
         return np.vstack([lats, longs]).transpose()
 
-# This returns an array with two values: the steps and the
-    def green_between(self, steps):
+    def green_between(self, steps): # Returns a list with the number of green pixels in each satellite image
         if steps == None:
             steps = 20 #Default step size
         if steps <= 0: # Raise exception for non-positive values
@@ -42,12 +43,8 @@ class Greengraph(object):
         self.geolocate(self.start),
         self.geolocate(self.end),steps)]
         return green_array
-        #if type(green_array) == NoneType:
-        #    raise ValueError('Input location not found')
-        #    quit()
 
-# Google API error method
-    def api_overload(self, steps):
+    def api_overload(self, steps): # Return TRUE if API overload
         data = self.green_between(steps)
         error_threshold = 2
         count = 0
@@ -59,20 +56,9 @@ class Greengraph(object):
         else:
             return False
 
-    def show_map(self, place):
+    def show_map(self, place): # Access satellite image of Map object
         return Map(*self.geolocate(place)).image
 
-    def show_green_map(self, place):
+    def show_green_map(self, place): # Access green pixel map
         some_map = Map(*self.geolocate(place))
         return some_map.show_green()
-
-
-
-
-
-        #pixels=img.imread(StringIO(data)) # Get our PNG image as rows of pixels
-        #green = is_green(pixels)
-        #out = green[:,:,np.newaxis]*np.array([0,1,0])[np.newaxis,np.newaxis,:]
-        #buffer = StringIO()
-        #result = img.imsave(buffer, out, format='png')
-        #return buffer.getvalue()
