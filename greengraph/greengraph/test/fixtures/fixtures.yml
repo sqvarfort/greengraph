@@ -1,0 +1,28 @@
+# Fixtures for Greengraph tests
+
+# What to include:
+# filename
+# domain name
+# step size
+# start and end location
+# print graph for every step
+
+- sample_start: 'London'
+  sample_end: 'Manchester'
+  sample_steps: '30'
+  sample_filename: 'image.png'
+  sample_delay: '1'
+  #sample_filename_jpg: 'image.jpg'
+
+- sensor: 'false'
+  zoom: 10
+  size: "400x400"
+  center: '51.5073509,-0.1277583'
+  style: "feature:all|element:labels|visibility:off"
+  maptype: 'satellite'
+
+- bad_sample_start: 'pjwasdfoierngoijasdfhjl'
+  bad_sample_end: 'afenoiqwejrklasdfniot'
+  bad_sample_steps: '-30'
+  bad_sample_filename: 'image.jjj'
+  bad_sample_delay: '-1'
