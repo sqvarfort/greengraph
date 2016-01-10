@@ -2,7 +2,7 @@
 #---------------------
 # Description: This code contains automated tests with nose.tools asserts to test every instance of the greengraph code.
 
-# Usage: Run with nose from command line.
+# Usage: Run with nosetests from command line.
 
 from nose.tools import assert_raises
 from nose.tools import assert_in
@@ -105,7 +105,7 @@ def test_geolocate():
         mymap.geolocate(sample_start)
         print mock_get.mock_calls
         mock_get.assert_called_with(domain='maps.google.co.uk')
-        #mock_get.assert_called_with(sample_start, exactly_one=False)
+
 
 
 #UNCOMPLETED TESTS
